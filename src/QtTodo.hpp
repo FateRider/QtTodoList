@@ -2,6 +2,8 @@
 #include <QComboBox>
 #include <QFileDialog>
 #include <QHBoxLayout>
+#include <QHeaderView>
+#include <QIcon>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMainWindow>
@@ -26,14 +28,16 @@ class TodoWindow : public QMainWindow {
   private:
     QWidget *centralWidget;
     QVBoxLayout *mainLayout;
+    QHBoxLayout *formLayout;
 
     QLineEdit *titleInput;
     QLineEdit *descriptionInput;
 
-    QRadioButton *checkedInput;
-
     QPushButton *addButton;
+    QPushButton *removeButton;
+    QPushButton *editoButton;
 
+    QRadioButton *checkedInput;
     QTableWidget *todoTable;
 
     void setupUI();
