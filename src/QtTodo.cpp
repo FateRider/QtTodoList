@@ -4,18 +4,10 @@
 #include <qlogging.h>
 #include <qpushbutton.h>
 
-TodoWindow::TodoWindow(QWidget *parent) : QMainWindow(parent) {
-    // db selection
-    QString filePath = QFileDialog::getSaveFileName(this, "Select or Create Database", QDir::homePath() + "/todos.db", "SQLite Database (*.db)");
-
-    if (!filePath.isEmpty()) {
-        dbManager = new DbManager(filePath.toUtf8().constData());
-    } else {
-        dbManager = nullptr;
-    }
-
+TodoWindow::TodoWindow(const QString &dbFilePath, QWidget *parent) : QMainWindow(parent) {
+    dbManager = std::make_unique<DbManager>(dbFilePath.toStdString().c_str());
     setupUI();
-};
+}
 
 TodoWindow::~TodoWindow() {};
 

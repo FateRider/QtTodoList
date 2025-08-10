@@ -18,7 +18,7 @@
 class TodoWindow : public QMainWindow {
     Q_OBJECT
   public:
-    TodoWindow(QWidget *parent = nullptr);
+    explicit TodoWindow(const QString &dbFilePath, QWidget *parent = nullptr);
     ~TodoWindow() override;
 
   private slots:
@@ -28,7 +28,7 @@ class TodoWindow : public QMainWindow {
     void checkTodo();
 
   private:
-    DbManager *dbManager;
+    std::unique_ptr<DbManager> dbManager;
 
     QWidget *centralWidget;
     QVBoxLayout *mainLayout;
