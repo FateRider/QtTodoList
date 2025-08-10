@@ -1,11 +1,22 @@
 #include "QtTodo.hpp"
 #include <qabstractitemview.h> //important
-#include <qboxlayout.h>
-#include <qicon.h>
-#include <qlineedit.h>
-#include <qnamespace.h>
+#include <qdebug.h>
+#include <qlogging.h>
 #include <qpushbutton.h>
-TodoWindow::TodoWindow(QWidget *parent) : QMainWindow(parent) { setupUI(); };
+
+TodoWindow::TodoWindow(QWidget *parent) : QMainWindow(parent) {
+    // db selection
+    QString filePath = QFileDialog::getSaveFileName(this, "Select or Create Database", QDir::homePath() + "/todos.db", "SQLite Database (*.db)");
+
+    if (!filePath.isEmpty()) {
+        dbManager = new DbManager(filePath.toUtf8().constData());
+    } else {
+        dbManager = nullptr;
+    }
+
+    setupUI();
+};
+
 TodoWindow::~TodoWindow() {};
 
 void TodoWindow::setupUI() {
@@ -36,9 +47,11 @@ void TodoWindow::setupUI() {
     setCentralWidget(centralWidget);
     setWindowTitle("Your Todo List");
     setWindowIcon(QIcon("../assets/icon.svg"));
+
+    connect(addButton, &QPushButton::clicked, this, &TodoWindow::addTodo);
 }
 
-void TodoWindow::addTodo() {};
+void TodoWindow::addTodo() { qDebug("hmm"); };
 void TodoWindow::removeTodo() {};
 void TodoWindow::editTodo() {};
 void TodoWindow::checkTodo() {};

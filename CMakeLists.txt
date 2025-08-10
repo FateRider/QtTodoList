@@ -16,6 +16,8 @@ add_executable(QtTodo
     ./src/main.cpp
     ./src/QtTodo.cpp
     ./src/QtTodo.hpp
+    ./src/Todo.cpp
+    ./src/Todo.hpp
 )
 
 

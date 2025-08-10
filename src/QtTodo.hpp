@@ -1,5 +1,7 @@
 #pragma once
+#include "Todo.hpp"
 #include <QComboBox>
+#include <QDebug>
 #include <QFileDialog>
 #include <QHBoxLayout>
 #include <QHeaderView>
@@ -26,6 +28,8 @@ class TodoWindow : public QMainWindow {
     void checkTodo();
 
   private:
+    DbManager *dbManager;
+
     QWidget *centralWidget;
     QVBoxLayout *mainLayout;
     QHBoxLayout *formLayout;
@@ -35,7 +39,7 @@ class TodoWindow : public QMainWindow {
 
     QPushButton *addButton;
     QPushButton *removeButton;
-    QPushButton *editoButton;
+    QPushButton *editButton;
 
     QRadioButton *checkedInput;
     QTableWidget *todoTable;
