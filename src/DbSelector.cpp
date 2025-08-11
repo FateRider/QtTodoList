@@ -9,6 +9,9 @@
 #include <QVBoxLayout>
 
 DbSelector::DbSelector(QWidget *parent) : QDialog(parent) {
+    QSettings settings("RiderSoft", "QtTodoApp");
+    dbFolderPath = settings.value("dbFolderPath", "").toString();
+
     setWindowTitle("Select or Create Todo List");
 
     dbList = new QListWidget(this);
@@ -51,10 +54,7 @@ void DbSelector::createNewList() {
     // If no folder selected yet, ask user to select/create one
     if (dbFolderPath.isEmpty()) {
         QString folder = QFileDialog::getExistingDirectory(this, "Select Folder to Store Todo Lists", QDir::homePath());
-        if (folder.isEmpty()) {
-            // User cancelled folder selection
-            return;
-        }
+        if (folder.isEmpty()) return;
 
         QDir dir(folder);
         if (!dir.exists()) {
@@ -63,6 +63,9 @@ void DbSelector::createNewList() {
                 return;
             }
         }
+
+        QSettings settings("RiderSoft", "QtTodoApp");
+        settings.setValue("dbFolderPath", dbFolderPath);
 
         dbFolderPath = folder;
     }

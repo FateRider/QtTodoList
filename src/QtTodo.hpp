@@ -11,6 +11,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QString>
 #include <QTableWidget>
 #include <QVBoxLayout>
 #include <QWidget>

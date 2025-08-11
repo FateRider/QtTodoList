@@ -1,4 +1,8 @@
 #include "QtTodo.hpp"
+#include <QMenu>
+#include <QMenuBar>
+#include <QMessageBox>
+#include <QSettings>
 #include <qabstractitemview.h> //important
 #include <qdebug.h>
 #include <qlogging.h>
@@ -38,9 +42,25 @@ void TodoWindow::setupUI() {
     centralWidget->setLayout(mainLayout);
     setCentralWidget(centralWidget);
     setWindowTitle("Your Todo List");
-    setWindowIcon(QIcon("../assets/icon.svg"));
+    setWindowIcon(QIcon("../assets/icon.png"));
 
     connect(addButton, &QPushButton::clicked, this, &TodoWindow::addTodo);
+
+    QMenuBar *menuBar = new QMenuBar(this);
+    QMenu *settingsMenu = menuBar->addMenu("Settings");
+
+    QAction *changeFolderAction = new QAction("Change Storage Folder", this);
+    connect(changeFolderAction, &QAction::triggered, [this]() {
+        QString folder = QFileDialog::getExistingDirectory(this, "Select New Storage Folder");
+        if (!folder.isEmpty()) {
+            QSettings settings("RiderSoft", "QtTodoApp");
+            settings.setValue("dbFolderPath", folder);
+            QMessageBox::information(this, "Folder Changed", "Storage folder updated successfully.");
+        }
+    });
+
+    settingsMenu->addAction(changeFolderAction);
+    setMenuBar(menuBar);
 }
 
 void TodoWindow::addTodo() { qDebug("hmm"); };

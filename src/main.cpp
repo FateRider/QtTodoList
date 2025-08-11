@@ -1,6 +1,7 @@
 #include "DbSelector.hpp"
 #include "QtTodo.hpp"
 #include <QApplication>
+#include <qicon.h>
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
@@ -14,5 +15,7 @@ int main(int argc, char *argv[]) {
             return app.exec();
         }
     }
+    selector.setWindowIcon(QIcon("../assets/icon.png"));
+    app.setWindowIcon(QIcon("../assets/icon.png"));
     return 0;
 }

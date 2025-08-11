@@ -4,6 +4,7 @@
 #include <QDir>
 #include <QListWidget>
 #include <QPushButton>
+#include <QSettings>
 #include <QString>
 
 class DbSelector : public QDialog {
